@@ -5,7 +5,7 @@ import sys
 n,t=sys.stdin.readline().split()
 r,c,d=sys.stdin.readline().split()
 index={'U': 0,'D':3,'R':1,'L':2}
-dr=[-1,0,0,1] # U, R,"L",
+dr=[-1,0,0,1] # 반대방향: index=3-index가능하기위해, 반대방향으로 짝꿍이 [1][2]에 있어야함 # U, R,"L", 
 dc=[0,1,-1,0]
 
 n=int(n) 
