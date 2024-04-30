@@ -1,4 +1,4 @@
-#L
+# 1) L
 # 방향소요 1
 import sys
 
@@ -8,7 +8,7 @@ index={'U': 0,'D':3,'R':1,'L':2}
 dr=[-1,0,0,1] # U, R,"L",
 dc=[0,1,-1,0]
 
-n=int(n)
+n=int(n) 
 t=int(t)
 r=int(r)
 c=int(c)
@@ -18,12 +18,8 @@ inde=index[d]
 for i in range(t):
     nr,nc= r+ dr[inde],c+dc[inde] # 새 일반방향 한칸
     if nr < 1 or nc<1 or nr >n or nc>n :
-        inde=3-inde# 이것도 1회
-        #r,c= r+ dr[index[d]-3],c+dc[index[d]-3] # -2 1
+        inde=3-inde # 회전도 1회 소멸  ## r,c= r+ dr[index[d]-3],c+dc[index[d]-3] # 
     else :
-        r,c=nr,nc # 이동
-    # print(r,c)
-    
+        r,c=nr,nc ## 이동
 
-
-print(r,c) # 복사가
+print(r,c)
