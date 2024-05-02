@@ -14,10 +14,10 @@ r,c=0,0
 index=0
 amap[0][0]=1
 for i in range(1,m*n):
-    nr,nc=r+dr[index],c+dc[index] # 새 임시위치
-    if nr <0 or nc<0 or nr > n-1 or nc > m-1 or amap[nr][nc]!=0: # 새 임시위치 검사
+    nr,nc=r+dr[index],c+dc[index] # 1) 새 임시위치
+    if nr <0 or nc<0 or nr > n-1 or nc > m-1 or amap[nr][nc]!=0: # 2) 새 임시위치 검사
         index=(index+1)%4 ## 방향업데이트
-    r,c=r+dr[index],c+dc[index] # 이동
+    r,c=r+dr[index],c+dc[index] #3) 이동
     amap[r][c]=i+1
 
 
