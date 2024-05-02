@@ -22,3 +22,4 @@ for i in range(len(data)):
     # print(r,c)
 print(-1)
 # 회전에도 1초걸림
+# 11m
