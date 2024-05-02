@@ -19,5 +19,8 @@ for i in range(n):  # str_data[i]
         #2탐색
         count+=1
         if r==0 and c==0:
-            answer = count # i+1)
+            # answer = count # i+1)
+            print(count)
+            exit() # 디버깅 
+    
 print(answer)
