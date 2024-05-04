@@ -15,8 +15,8 @@ dc=[0,0,-1,1]
 dele=set()
 
 for i in range(t): ## 초
-    # if m-len(dele)==0:
-    #     break
+    if m-len(dele)==0:
+        break
     for j in range(len(coins)):## 구슬
         if j in dele :
             continue #~ break로 해버림 한 10분썻나
@@ -35,11 +35,16 @@ for i in range(t): ## 초
             inde=val.index(maxv) ## 여러 개 있어도 1개의 인덱스값 줘서 상하좌우 우선순위.
             coins[j][0]=posi[inde][0]
             coins[j][1]=posi[inde][1]##coins[j][1]+dr[posi[inde]] # coins[j][1]+dr[inde]#  posi[inde]
-        print(val,posi)
+        # print(val,posi)
     ## 구슬 전부 이동 후 
-    ## 중복 위치
+    ## 중복 위치 : 이미 제거된 애들이랑은 겹쳐도 되는데 그게 고려 안됐네
+
     for jj in range(len(coins)):
+        if jj in dele :
+            continue
         for kk in range(jj+1, len(coins)):
+            if kk in dele:
+                continue
             if coins[jj] == coins[kk] : # pop 하면 for j , k 밀려서
                 dele.add(jj) # j,k
                 dele.add(kk)   
