@@ -6,7 +6,8 @@
 import sys
 n,t= map(int, sys.stdin.readline().split())#~ r
 # 숫자 : 시계방향으로 줌
-amap=list(map(int, sys.stdin.readline().split()))+list(map(int, sys.stdin.readline().split()))
+amap=list(map(int, sys.stdin.readline().split()))
+amap+=list(map(int, sys.stdin.readline().split()))
 # amap=  [ list(map(int, sys.stdin.readline().split())) for _ in range(2)]
 #  if n개보다 적  3 초 : [0-3~: ] # n개
 #  else
