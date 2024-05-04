@@ -13,9 +13,10 @@ dr=[-1,1,0,0]
 dc=[0,0,-1,1]
 
 dele=set()
+
 for i in range(t): ## 초
-    if m-len(dele)==0:
-        break
+    # if m-len(dele)==0:
+    #     break
     for j in range(len(coins)):## 구슬
         if j in dele :
             continue #~ break로 해버림 한 10분썻나
@@ -28,12 +29,13 @@ for i in range(t): ## 초
             if 0<=nr-1<=n-1 and 0<=nc-1<=n-1 :
                 val.append(amap[nr-1][nc-1]) # 값을 저장
                 posi.append([nr,nc])
+            
         if val :  #### 사방에 이동할 게 있었으면
             maxv=max(val)
-            inde=val.index(maxv)
+            inde=val.index(maxv) ## 여러 개 있어도 1개의 인덱스값 줘서 상하좌우 우선순위.
             coins[j][0]=posi[inde][0]
             coins[j][1]=posi[inde][1]##coins[j][1]+dr[posi[inde]] # coins[j][1]+dr[inde]#  posi[inde]
-
+        print(val,posi)
     ## 구슬 전부 이동 후 
     ## 중복 위치
     for jj in range(len(coins)):
@@ -49,4 +51,4 @@ for i in range(t): ## 초
     # 여기도 j하면 엉키나
 
 print(m-len(dele))
-# 23m
+# 23m +30m(디버깅으로 일분 수정했어도 제출하면 틀림)
