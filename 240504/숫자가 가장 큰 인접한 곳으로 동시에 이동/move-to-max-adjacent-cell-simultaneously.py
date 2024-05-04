@@ -32,7 +32,7 @@ for i in range(t): ## 초
             maxv=max(val)
             inde=val.index(maxv)
             coins[j][0]=coins[j][0]+dr[posi[inde]]
-            coins[j][1]=coins[j][0]+dr[posi[inde]] # coins[j][1]+dr[inde]#  posi[inde]
+            coins[j][1]=coins[j][1]+dr[posi[inde]] # coins[j][1]+dr[inde]#  posi[inde]
 
     ## 구슬 전부 이동 후 
     ## 중복 위치
