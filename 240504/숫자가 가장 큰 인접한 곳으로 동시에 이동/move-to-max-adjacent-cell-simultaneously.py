@@ -2,7 +2,6 @@
 # -> 중복된 위치 있으면 : 사라짐
 # -> t초후 남은 구슬 수
 
-
 import sys
 n, m, t = map(int, sys.stdin.readline().split())
 # int() : 앞뒤 딱붙은 공백 지워주는거 말고는, 일반적으로 생각한 int() 제한이랑 같음 
@@ -15,7 +14,7 @@ dc=[0,0,-1,1]
 
 dele=set()
 for i in range(t): ## 초
-    if m-len(dele):
+    if m-len(dele)==0:
         break
     for j in range(len(coins)):## 구슬
         if j in dele :
@@ -47,5 +46,4 @@ for i in range(t): ## 초
 
 
 print(m-len(dele))
-
 # 23m
