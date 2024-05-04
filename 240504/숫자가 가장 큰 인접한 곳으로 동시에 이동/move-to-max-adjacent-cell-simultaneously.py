@@ -18,7 +18,7 @@ for i in range(t): ## 초
         break
     for j in range(len(coins)):## 구슬
         if j in dele :
-            break
+            continue #~ break로 해버림 한 10분썻나
         ## 최적화 안함
         val=[]
         posi=[]
