@@ -27,12 +27,12 @@ for i in range(t): ## 초
             nc=coins[j][1]+dc[k]
             if 0<=nr-1<=n-1 and 0<=nc-1<=n-1 :
                 val.append(amap[nr-1][nc-1]) # 값을 저장
-                posi.append(k)
+                posi.append([nr,nc])
         if val :  #### 사방에 이동할 게 있었으면
             maxv=max(val)
             inde=val.index(maxv)
-            coins[j][0]=coins[j][0]+dr[posi[inde]]
-            coins[j][1]=coins[j][1]+dr[posi[inde]] # coins[j][1]+dr[inde]#  posi[inde]
+            coins[j][0]=posi[inde][0]
+            coins[j][1]=posi[inde][1]##coins[j][1]+dr[posi[inde]] # coins[j][1]+dr[inde]#  posi[inde]
 
     ## 구슬 전부 이동 후 
     ## 중복 위치
@@ -43,9 +43,10 @@ for i in range(t): ## 초
                 dele.add(kk)   
                 # coins=coins[i]
                 # coins.pop(k-    )
+
+    # print(dele)
+    # print(coins)
     # 여기도 j하면 엉키나
-
-
 
 print(m-len(dele))
 # 23m
