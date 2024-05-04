@@ -36,14 +36,15 @@ for i in range(t): ## 초
 
     ## 구슬 전부 이동 후 
     ## 중복 위치
-    
-    for j in range(len(coins)):
-        for k in range(j+1, len(coins)):
-            if coins[j] == coins[k] : # pop 하면 for j , k 밀려서
-                dele.add(j) # j,k
-                dele.add(k)   
+    for jj in range(len(coins)):
+        for kk in range(jj+1, len(coins)):
+            if coins[jj] == coins[kk] : # pop 하면 for j , k 밀려서
+                dele.add(jj) # j,k
+                dele.add(kk)   
                 # coins=coins[i]
                 # coins.pop(k-    )
+    # 여기도 j하면 엉키나
+
 
 
 print(m-len(dele))
