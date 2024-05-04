@@ -30,9 +30,9 @@ for i in range(t): ## 초
                 posi.append(k)
         if val :  #### 사방에 이동할 게 있었으면
             maxv=max(val)
-            inde=val.index(val)
-            coins[j][0]=coins[j][0]+dr[k]
-            coins[j][1]=coins[j][0]+dr[k] # coins[j][1]+dr[inde]#  posi[inde]
+            inde=val.index(maxv)
+            coins[j][0]=coins[j][0]+dr[posi[inde]]
+            coins[j][1]=coins[j][0]+dr[posi[inde]] # coins[j][1]+dr[inde]#  posi[inde]
 
     ## 구슬 전부 이동 후 
     ## 중복 위치
