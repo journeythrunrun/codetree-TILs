@@ -2,7 +2,6 @@
 # -> 거친 값
 
 import sys
-
 n,r,c = map(int, sys.stdin.readline().split())
 r-=1 
 c-=1
@@ -15,9 +14,9 @@ while(1):
     exist=False
     for i in range(4):
         nr=r+dr[i]
-        nc=c+dc[i] # 1새 탐색
-        if n-1>=nr >=0 and n-1>= nc >=0 and amap[r][c]<amap[nr][nc]: #2검사
-            # 이동
+        nc=c+dc[i] # 1 새 탐색
+        if n-1>=nr >=0 and n-1>= nc >=0 and amap[r][c]<amap[nr][nc]: # 2 검사
+            ## 3 이동
             r,c=nr,nc
             print(amap[r][c],end=' ')
             exist=True
