@@ -19,7 +19,7 @@ for i in range(t): ## 초
     for j in range(len(coins)):## 구슬
         if j in dele :
             break
-        # 최적화 안함
+        ## 최적화 안함
         val=[]
         posi=[]
         for k in range(4):
@@ -40,7 +40,8 @@ for i in range(t): ## 초
     for j in range(len(coins)):
         for k in range(j+1, len(coins)):
             if coins[j] == coins[k] : # pop 하면 for j , k 밀려서
-                dele.add(j,k)   
+                dele.add(j) # j,k
+                dele.add(k)   
                 # coins=coins[i]
                 # coins.pop(k-    )
 
