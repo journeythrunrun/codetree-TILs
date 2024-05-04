@@ -9,7 +9,7 @@ for i in range(n-2):
     for j in range(n-2):# 해당위치에서부터 3x3
         count=0
         for kk in range (i,i+3):
-            count+=sum([ amap[kk][j+k] for k in range(3) ] ) # 2차원인덱싱 : 다른 방법으로도 했었는데 굳이 찾진말자 ## 9개밖에 없으니까 그냥
+            count+=sum([ amap[kk][j+k] for k in range(3) ] ) # 2차원인덱싱 : 완벽히 못자르니 sum위해선 그냥 forfor돌아 # 다른 방법으로도 했었는데 굳이 찾진말자 ## 9개밖에 없으니까 그냥
         answer=max(answer, count)
 print(answer)
 # 10m : 입력받는 방식 sys로 전환
