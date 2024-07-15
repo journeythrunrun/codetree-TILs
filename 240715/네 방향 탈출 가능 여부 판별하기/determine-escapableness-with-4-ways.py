@@ -12,7 +12,7 @@ dj=[1,-1,0,0]
 # print(amap)
 def bfs(v): 
     answer=0
-    aqueue=deque([v]) # [ v ]  여야 pop할때 v가 빠짐. 요소의 밖 리스트도 씌워줘야함.
+    aqueue=deque([v]) # - [ v_리스트 ]  (2차원리스트)여야 pop할때 한 껍질 벗기고 v가 빠짐. 
     visited[v[0]] [v[1]] = True
     # print(aqueue)
     while (aqueue):
