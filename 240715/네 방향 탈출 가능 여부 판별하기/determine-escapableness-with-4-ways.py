@@ -8,10 +8,11 @@ from collections import deque
 visited=[[0]*m for _ in range(n)]
 di=[0,0,1,-1]
 dj=[1,-1,0,0]
+
 # print(amap)
 def bfs(v): 
     answer=0
-    aqueue=deque([v]) # [ ] 
+    aqueue=deque([v]) # [ v ]  여야 pop할때 v가 빠짐. 요소의 밖 리스트도 씌워줘야함.
     visited[v[0]] [v[1]] = True
     # print(aqueue)
     while (aqueue):
