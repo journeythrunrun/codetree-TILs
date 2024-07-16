@@ -41,8 +41,7 @@ for _ in range(k):
                 aque.append([ni,nj])
                 visited[ni][nj]=1
                 target.append([ni,nj,amap[ni][nj]])# wow
-    # target.sort(key=lambda x : (-x[2],x[0],x[1] ) )
-    # # print(target)
+    target.sort(key=lambda x : (-x[2],x[0],x[1] ) )
     # ni,nj=target[0][0],target[0][1]
     # if i==ni and j ==nj :        # 이동할곳 없으면 탈출
     #     break
