@@ -3,7 +3,8 @@
 # 2) t초만큼 인덱스를 -= : 원행열은 없으니 앞 넘어가면 연산해서 맨 뒷쪽으로 가게.
 
 import sys
-# readline() : 입력의 마지막 줄 아닌 줄은 \n붙음.  
+# - [[sys.stdin.readline()]] : ~~input(). 입력의 마지막 줄 아닌 줄은 \n붙음. 
+#   +  - int() :  문자열의 앞뒤에 있는 공백을 무시[GPT]
 n,t= map(int, sys.stdin.readline().split())
 ## 숫자 : 시계방향으로 줌
 amap=list(map(int, sys.stdin.readline().split()))
