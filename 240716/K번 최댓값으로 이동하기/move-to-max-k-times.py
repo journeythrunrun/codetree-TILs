@@ -7,7 +7,7 @@
 
 # 2) bfs -> sort
 #   작은 것만 append.  행index,열index , 값
-# target.sort(lambda key=(-a[2],a[0],a[1] ) )# 클래스때만 되는건아니겠지
+# target.sort(key=lambda x : (-x[2],x[0],x[1] ) ) 
 import sys
 from collections import deque
 input=sys.stdin.readline
@@ -18,7 +18,7 @@ r,c=map(int,input().split())
 
 if n==1:
     print(r,c)
-    exit()# 아 저번에도.. 
+    exit()# + (4) 엣지케이스_exit()!!!!!!!!! 
 
 i,j=r-1,c-1
 di=[0,0,1,-1]
@@ -26,30 +26,28 @@ dj=[1,-1,0,0]
 
 for _ in range(k):
     target=[]
-    # k번에서
     visited=[[0]*n for _ in range(n)]
-    aque=deque([[i,j]]) #~
+    aque=deque([[i,j]]) 
     visited[i][j]=1
 
     while(aque):
         v=aque.popleft()
-        # i,j=v[0],v[1] # 아 수정하고 수정한다는 게 안했었네
+        # i,j=v[0],v[1] # + 한 이유로 수정생각하고 빼먹은 경우 -> 여러 곳에 수정시작 전에, #@표시
         
 
         for x in range (4): 
             ni,nj=v[0]+di[x],v[1]+dj[x]
-            if 0<=ni<n and 0<=nj<n and visited[ni][nj]==0 and amap[ni][nj]<amap[i][j]: # 조건이 틀림
+            if 0<=ni<n and 0<=nj<n and visited[ni][nj]==0 and amap[ni][nj]<amap[i][j]: # 큐에서 pop된 거 말고, 더 본질적인 위치여야함.
                 aque.append([ni,nj])
                 visited[ni][nj]=1
-                target.append([ni,nj,amap[ni][nj]])# wow
+                target.append([ni,nj,amap[ni][nj]]) # + 이건 또 왜 안에 비워뒀었지. 코드 수정 때, 복붙 후에도 쭉 내려 훑기. 
     # print(i,j)
-    if len(target)==0: # append된게 없다면. # ==이동할곳 없으면 탈출 # 이전이랑 같아서 값업데이트 안해도됨
+    if len(target)==0: # 작은 값 append된게 없다면. # ==이동할곳 없으면 탈출 ## 이전이랑 같아서 값 업데이트 안해도됨
         break
     else :
         target.sort(key=lambda x : (-x[2],x[0],x[1] ) ) 
-        i,j=target[0][0],target[0][1]# 변형할때 쫌 엄밀히 보며 반영변경하지
-
-    # ni,nj=target[0][0],target[0][1] #! ni
+        i,j=target[0][0],target[0][1] # - 코드 통째로 변형할때 엄밀히 한줄한줄 보며 변경
+    # ni,nj=target[0][0],target[0][1]
     # if i==ni and j ==nj :        
     #     break
     # else :
@@ -59,8 +57,7 @@ for _ in range(k):
 print(i+1,j+1)
 
 
-# 엄밀히봐보기
-# 일반input()의 줄엔터는
-# 시간복잡도 암기
-
-# 런타이멩러 엣지케이스
+# - 엄밀히봐보기
+# - 시간복잡도 암기
+#   + 500, 만, 백만 (보통 대략 1초 기준)
+# - 1h 15m (결국 틀린 테스트케이스봄 : exit())
