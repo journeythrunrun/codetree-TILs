@@ -8,9 +8,9 @@
 # 2) bfs -> sort
 #   작은 것만 append.  행index,열index , 값
 # target.sort(lambda key=(-a[2],a[0],a[1] ) )# 클래스때만 되는건아니겠지
-# import sys
+import sys
 from collections import deque
-# input=sys.stdin.readline
+input=sys.stdin.readline
 
 n, k=map(int,input().split())
 amap=[ list(map(int,input().split())) for _ in range(n)    ]
@@ -23,7 +23,7 @@ i,j=r-1,c-1
 di=[0,0,1,-1]
 dj=[1,-1,0,0]
 
-for _ in range(k):
+for _ in range(5):
     target=[]
     # k번에서
     visited=[[0]*n for _ in range(n)]
@@ -42,8 +42,8 @@ for _ in range(k):
                 aque.append([ni,nj])
                 visited[ni][nj]=1
                 target.append([ni,nj,amap[ni][nj]])# wow
-    # print(i,j)
-    if len(target)==0: # append된게 없다면. # ==이동할곳 없으면 탈출
+    print(i,j)
+    if len(target)==0: # append된게 없다면. # ==이동할곳 없으면 탈출 # 이전이랑 같아서 값업데이트 안해도됨
         break
     else :
         target.sort(key=lambda x : (-x[2],x[0],x[1] ) ) 
