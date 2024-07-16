@@ -6,7 +6,7 @@
 ## -> 여러 개 : 행번호가 가장 작은 곳 -> 열번호 작은 곳
 
 # 2) bfs -> sort
-#   작은 거만 append.  행index,열index , 값
+#   작은 것만 append.  행index,열index , 값
 # target.sort(lambda key=(-a[2],a[0],a[1] ) )# 클래스때만 되는건아니겠지
 # import sys
 from collections import deque
@@ -35,19 +35,19 @@ for _ in range(k):
         # i,j=v[0],v[1] # 아 수정하고 수정한다는 게 안했었네
         
 
-        for x in range (4): # !
-            ni,nj=v[0]+di[x],v[1]+dj[x]
-            if 0<=ni<n and 0<=nj<n and visited[ni][nj]==0 and amap[ni][nj]<amap[i][j]: # 조건이 틀림
-                aque.append([ni,nj])
-                visited[ni][nj]=1
-                target.append([ni,nj,amap[ni][nj]])# wow
-    target.sort(key=lambda x : (-x[2],x[0],x[1] ) )
-    # print(target)
-    ni,nj=target[0][0],target[0][1]
-    if i==ni and j ==nj :        # 이동할곳 없으면 탈출
-        break
-    else :
-        i,j=ni,nj
+    #     for x in range (4): # !
+    #         ni,nj=v[0]+di[x],v[1]+dj[x]
+    #         if 0<=ni<n and 0<=nj<n and visited[ni][nj]==0 and amap[ni][nj]<amap[i][j]: # 조건이 틀림
+    #             aque.append([ni,nj])
+    #             visited[ni][nj]=1
+    #             target.append([ni,nj,amap[ni][nj]])# wow
+    # target.sort(key=lambda x : (-x[2],x[0],x[1] ) )
+    # # print(target)
+    # ni,nj=target[0][0],target[0][1]
+    # if i==ni and j ==nj :        # 이동할곳 없으면 탈출
+    #     break
+    # else :
+    #     i,j=ni,nj
     # print(i+1,j+1)
     
 # +1 출력
