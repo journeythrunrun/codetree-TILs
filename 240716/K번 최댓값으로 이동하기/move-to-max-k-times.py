@@ -18,6 +18,7 @@ r,c=map(int,input().split())
 
 if n==1:
     print(r,c)
+    exit()# 아 저번에도.. 
 
 i,j=r-1,c-1
 di=[0,0,1,-1]
