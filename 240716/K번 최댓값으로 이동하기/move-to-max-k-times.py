@@ -42,12 +42,12 @@ for _ in range(k):
                 visited[ni][nj]=1
                 target.append([ni,nj,amap[ni][nj]])# wow
     target.sort(key=lambda x : (-x[2],x[0],x[1] ) )
-    # ni,nj=target[0][0],target[0][1]
-    # if i==ni and j ==nj :        # 이동할곳 없으면 탈출
-    #     break
-    # else :
-    #     i,j=ni,nj
-    # print(i+1,j+1)
+    ni,nj=target[0][0],target[0][1]
+    if i==ni and j ==nj :        # 이동할곳 없으면 탈출
+        break
+    else :
+        i,j=ni,nj
+    ##print(i+1,j+1)
     
 # +1 출력
 print(i+1,j+1)
