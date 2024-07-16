@@ -23,7 +23,7 @@ i,j=r-1,c-1
 di=[0,0,1,-1]
 dj=[1,-1,0,0]
 
-for _ in range(5):
+for _ in range(k):
     target=[]
     # k번에서
     visited=[[0]*n for _ in range(n)]
@@ -32,7 +32,6 @@ for _ in range(5):
 
     while(aque):
         v=aque.popleft()
-        visited[v[0]][v[1]]=1
         # i,j=v[0],v[1] # 아 수정하고 수정한다는 게 안했었네
         
 
@@ -42,7 +41,7 @@ for _ in range(5):
                 aque.append([ni,nj])
                 visited[ni][nj]=1
                 target.append([ni,nj,amap[ni][nj]])# wow
-    print(i,j)
+    # print(i,j)
     if len(target)==0: # append된게 없다면. # ==이동할곳 없으면 탈출 # 이전이랑 같아서 값업데이트 안해도됨
         break
     else :
