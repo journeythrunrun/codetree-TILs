@@ -8,9 +8,9 @@
 # 2) bfs -> sort
 #   작은 거만 append.  행index,열index , 값
 # target.sort(lambda key=(-a[2],a[0],a[1] ) )# 클래스때만 되는건아니겠지
-import sys
+# import sys
 from collections import deque
-input=sys.stdin.readline
+# input=sys.stdin.readline
 
 n, k=map(int,input().split())
 amap=[ list(map(int,input().split())) for _ in range(n)    ]
