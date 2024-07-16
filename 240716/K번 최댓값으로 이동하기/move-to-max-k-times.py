@@ -15,9 +15,11 @@ from collections import deque
 n, k=map(int,input().split())
 amap=[ list(map(int,input().split())) for _ in range(n)    ]
 r,c=map(int,input().split())
+
+if n==1:
+    print(r,c)
+
 i,j=r-1,c-1
-
-
 di=[0,0,1,-1]
 dj=[1,-1,0,0]
 
@@ -55,3 +57,5 @@ print(i+1,j+1)
 # 엄밀히봐보기
 # 일반input()의 줄엔터는
 # 시간복잡도 암기
+
+# 런타이멩러 엣지케이스
