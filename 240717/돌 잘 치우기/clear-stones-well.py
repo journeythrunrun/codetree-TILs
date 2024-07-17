@@ -21,10 +21,7 @@ for i in range(len(amap)):
 from itertools import combinations
 # 저장 rc -1
 
-# - itertools 복습
-#   + product(*list) : 각 행에서 한 개씩 뽑음
 # 1개여서 활용 때 좀 헷갈렸을뿐 저렇게 나오는 거 맞음 print(list(combinations(ones,m)))#[([1, 2],), ([2, 0],)]
-
 di=[0,0,1,-1]
 dj=[1,-1,0,0]
 from collections import deque
@@ -70,3 +67,7 @@ print(result)
 #   + 2)를 더해야할 듯 싶다. 나무의 위에서 시작돼서 내려오는데, 구현쓰다가 다시 위의 생각으로 돌아가려고 약간 두리번_중복 및 생각 전환 시간.
 
 # - (4)까지 하기 : (엣지케이스_exit()!!!!!!!!!)
+
+# - itertools 복습
+#   + product(*list) : 각 행에서 한 개씩 뽑음
+# https://github.com/journeythrunrun/01-coding-test/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/43165.%E2%80%85%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84/%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84.py
