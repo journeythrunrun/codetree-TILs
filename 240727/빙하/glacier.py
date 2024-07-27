@@ -55,7 +55,7 @@ def bfs2(v):#인접0다가가기로 벽만날수있으면->1화
 def bfs(v):
     visited[v[0]][v[1]]=True
     aque=deque([v])
-    # print(v)
+    print(v)
     while(aque):
         w=aque.popleft()
         # 출
@@ -85,7 +85,7 @@ while(ones):#numb!=alln):# 다음초
     # 아 'pop'하면 인덱스 밀리네 | ones 길이로 while문 종료 판단
     # 멍
     #len(ones)-1
-    # print('second')
+    print('second')
     # ones.pop빼는 알고리즘으로 바꾸기 전에 모든 ones 사용 위치 찾아봤어야지. 
     post=0
     change=[]
@@ -101,6 +101,7 @@ while(ones):#numb!=alln):# 다음초
             post-=1
         #else :
         #    anothoer.append(ones[i])
+
     for v in change :
         amap[v[0]][v[1]]=0
 
@@ -108,7 +109,9 @@ print(cnt,left )#~
 
 
 
-# 3m+
+# - 시간많이듬+
 #   + 딴 생각 쫌 함
-# - 딴 생각 들거나 멍 때려지면 : 노래 크게 듣기?
-# 코드 알고리즘 - 16분 디버깅 오타
+#   > 16분 디버깅 오타
+#   + 딴 생각 들거나 멍 때려지면 : 노래 크게 듣기?
+
+#
