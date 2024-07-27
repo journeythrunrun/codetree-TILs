@@ -55,7 +55,7 @@ def bfs2(v):#인접0다가가기로 벽만날수있으면->1화
 def bfs(v):
     visited[v[0]][v[1]]=True
     aque=deque([v])
-    print(v)
+    # print(v)
     while(aque):
         w=aque.popleft()
         # 출
@@ -85,7 +85,7 @@ while(ones):#numb!=alln):# 다음초
     # 아 'pop'하면 인덱스 밀리네 | ones 길이로 while문 종료 판단
     # 멍
     #len(ones)-1
-    print('second')
+    # print('second')
     # ones.pop빼는 알고리즘으로 바꾸기 전에 모든 ones 사용 위치 찾아봤어야지. 
     post=0
     change=[]
