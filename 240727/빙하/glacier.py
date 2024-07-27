@@ -47,7 +47,7 @@ def bfs2(v):#인접0다가가기로 벽만날수있으면->1화
                 aque2.append([ni,nj])  # aque2 # 2헷갈리니 아예이름이 다른게 낫
                 visited2[ni][nj]=True #visited2
                 
-                if ni==0 or nj==0 or ni==n-1 or nj==m-1:
+                if ni==1 or nj==1 or ni==n-2 or nj==m-2:
                     return True
     return False
 
@@ -106,7 +106,6 @@ while(ones):#numb!=alln):# 다음초
         amap[v[0]][v[1]]=0
 
 print(cnt,left )#~
-
 
 
 # - 시간많이듬+
