@@ -7,18 +7,13 @@
 # 둘러쌓임 : 
  
 #(4) 엣지케이스 = 예제
+
+# 가장 바깥 0부터 한층의 1을 0으로 하는 게 빨랐을 수
 import sys
 inpu=sys.stdin.readline
-#
+
 n,m=map(int, inpu().split())
 amap=[ list(map(int, inpu().split())) for _ in range(n)]
-# n,m=6, 7
-# amap=[[ 0 ,0 ,0, 0, 0, 0, 0],
-# [0, 1, 1, 1, 1, 0, 0],
-# [0, 1, 1, 0, 1, 1, 0],
-# [0, 1, 0, 1, 1, 1, 0],
-# [0, 1, 1, 1, 1, 1, 0],
-# [0, 0, 0, 0, 0, 0, 0]]
 ones=[]
 for i in range(n):
     for j in range(m):
@@ -71,12 +66,10 @@ def bfs(v):
                 #visited[ni][nj]=True
     return False
 
-# abcd                    
-alln=len(ones)
+
 numb=0
-another=[]
 cnt=0
-while(ones):#numb!=alln):# 다음초
+while(ones):# 다음초
     visited=[[False]*m for _ in range(n)]
     cnt+=1
 
@@ -99,9 +92,6 @@ while(ones):#numb!=alln):# 다음초
 
             ones.pop(i)
             post-=1
-        #else :
-        #    anothoer.append(ones[i])
-
     for v in change :
         amap[v[0]][v[1]]=0
 
