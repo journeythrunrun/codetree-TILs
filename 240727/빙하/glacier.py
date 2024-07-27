@@ -6,10 +6,10 @@
 #    1이 미방문 0 만났을 때 : 인접0다가가기로 벽만날수있으면->자신인1의 0화 # 잘못썼넹
 # 둘러쌓임 : 
  
-#(4) 엣지케이스
+#(4) 엣지케이스 = 예제
 import sys
 inpu=sys.stdin.readline
-
+#
 n,m=map(int, inpu().split())
 amap=[ list(map(int, inpu().split())) for _ in range(n)]
 # n,m=6, 7
