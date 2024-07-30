@@ -1,206 +1,128 @@
-# 걍해설보는게 빠르겠다
+# - 해설 방법
+# -> 네곳씩만 보면서, 내부로 bfs. 그 네 방면 쪽을 q에 넣고 bfs돌리기. 
+# -> q : 첨에끝에서 시작해서 1아니게 만나는 애들 다
+# -> copy이유 : 녹은 걸 이제 다음 번 녹일 때 출발점으로 사용
 
-# 빙하1 
+# - 생각보다 해설 이해하는 순수시간 적게 드네
+#   + 하다가 시간 꽤지나면 해설로 넘어가기
+#     >  첨엔 해설 길어서 해설 방법 이해가 더 꽤 걸릴 줄 쫄
 
-# 1초당 빙하 물에 닿아있는 부분 녹음 but 빙하로 둘러싸여있는 물은 빙하못녹임
+# - 담번에 이 방법으로 직접 풀어보기 ? 그건 새문제로 구현하면서 하는 게 낫나 
 
-# 빙하가 전부 녹는데 걸리는 시간, 마지막으로 녹은 빙하의 크기(1의 개수)
-# 2) while(len(left)!=0) for n  
-#    1이 미방문 0 만났을 때 : 인접0다가가기로 벽만날수있으면->자신인1의 0화 # 잘못썼넹
-# 둘러쌓임 : 
- 
-#(4) 엣지케이스 = 예제
+from collections import deque
+import enum
 
-# M2-> M1 # 가장 바깥 0부터 한층의 1을 0으로 하는 게 빨랐을 수
+class Element(enum.Enum):
+    WATER = 0
+    GLACIER = 1
+    
+# 변수 선언 및 입력
+n, m = tuple(map(int, input().split()))
+
+a = [
+    list(map(int, input().split()))
+    for _ in range(n)
+]
+
+# bfs에 필요한 변수들 입니다.
+q = deque()
+glaciers_to_melt = deque()
+visited = [
+    [False for _ in range(m)]
+    for _ in range(n)
+]
+cnt = 0
+
+dxs, dys = [0, 1, 0, -1], [1, 0, -1, 0]
+
+# 소요 시간과 가장 마지막으로 녹은 빙하의 수를 저장합니다.
+elapsed_time = 0
+last_melt_cnt = 0
+
+# 주어진 위치가 격자를 벗어나는지 여부를 반환합니다.
+def in_range(x, y):
+    return 0 <= x and x < n and 0 <= y and y < m
+
+# 범위를 벗어나지 않으면서 물이여야 하고 방문한적이 
+# 없어야 갈 수 있습니다.
+def can_go(x, y):
+    return in_range(x, y) and a[x][y] == Element.WATER.value and not visited[x][y]
 
 
-import sys
-inpu=sys.stdin.readline
+# 범위를 벗어나지 않으면서 빙하여야 하고 이미 
+# 선택된 적이 없어야 중복 없이 녹아야할 빙하 목록에 
+# 해당 빙하를 문제 없이 추가할 수 있습니다.
+def is_glacier(x, y):
+    return in_range(x, y) and a[x][y] == Element.GLACIER.value and not visited[x][y]
 
-n,m=map(int, inpu().split())
-amap=[ list(map(int, inpu().split())) for _ in range(n)]
-# M1 - [1]~[n-2], [1]~[m-2] 범위에서, 위는 아래(반대방향)로1찾,.. 
-# 단순직진 알고리즘으로 했을때 완벽하려나
-## du, dd, dl, dr= [1,0],[-1,0], [0,1],[0,-1]
-dudlr=[ [[1,0],[-1,0]], [[0,1],[0,-1]] ] # 
 
-# print(dudd)
-# print(dldr)
-cnt=0
-#for _ in range(1,n-1)
-target_udlr=[ [ [ [k,i]  for i in range(1,m-1) ] for k in [0,n-1] ] ,  [ [ [i,k]  for i in range(1,n-1) ] for k in [0,m-1] ]]
-#target_lr= [ [ [i,k]  for i in range(1,n-1) ] for k in [0,m-1] ]
+# 아직 방문해보지 못한 빙하에 둘러쌓여 있지 않은 물 영역을 더 탐색해주는 BFS입니다.
+def bfs():
+    while q:
+        # queue에서 가장 먼저 들어온 원소를 뺍니다.
+        x, y = q.popleft()
+        
+        # queue에서 뺀 원소의 위치를 기준으로 네 방향을 확인합니다.
+        for dx, dy in zip(dxs, dys):
+            new_x, new_y = x + dx, y + dy
 
-## 디버깅 : 이전맵에서 동일하게 가야해. 중복1발견 주의
-## 디버깅 : 양쪽들 확인 # 방문하지 않은 사방확인
-ones=0
-for i in range(n):
-    for j in range(m):
-        if amap[i][j]==1:
-            ones+=1
+            # 더 갈 수 있는 곳이라면 Queue에 추가합니다.
+            if can_go(new_x, new_y):
+                q.append((new_x, new_y))
+                visited[new_x][new_y] = True
+            # 만약 아직 방문하지 않은 빙하가 있는 곳이라면
+            elif is_glacier(new_x, new_y):
+                # 빙하에 둘러쌓여 있지 않은 물에 인접한 빙하이므로 이번에 녹아야 할 빙하이므로 
+                # 따로 저장해줍니다.
+                # 중복되어 같은 빙하 정보가 기록되는 것을 막기위해
+                # 이때에도 visited 값을 true로 설정해줍니다.
+                glaciers_to_melt.append((new_x, new_y))
+                visited[new_x][new_y] = True
 
-while(1):
-    #~ 탈출조건 맞춰서 cnt위치
-    change=[]# 중복되도 ㄱㅊ
-    cnt+=1
-    # print('thththththth')
-    melt=0
-    check=1
-    for j in [0,1] : # udlr
-        for k in [0,1]: # updown
-            for i, u in enumerate( target_udlr[j][k]) :
-                #i_ud=0
-                two_bre=False
-                #print(target_udlr[j][k][i][0])
-                # 코드 합치다가 에러나네 # 아까꺼 주석해놓을걸 - ui넓은 거 --> 오류나면 주석처리고 뭐고 통쨰로 출력안보여서 합쳤을 때 디버깅 더 어렵
-                while(amap[target_udlr[j][k][i][0]][target_udlr[j][k][i][1]]!=1): #u였# 1 안나오면: but 반넘어가면 무한탈출
-                    #print('while',u)
-                    nm=n if j==0 else m
-                    # i_ud로 단순카운팅으로 하기엔, 중간부터시작하기도 하지. -> u,d,l,r인경우 조건 다른거 귀찮 -> 인덱스범위로
-                    # if i_ud >= (nm+1)//2 -1 : # -1 : 번째의 인덱스화 # 이때도 0인거면 그만
 
-                    new=[target_udlr[j][k][i][0]+dudlr[j][k][0],target_udlr[j][k][i][1]+dudlr[j][k][1]]# 막판업뎃1인놈orbreak대상들
-                    if 0<=new[0]<n and 0<= new[1]<m: # 반배 더가는정도야뭐
-                        target_udlr[j][k][i]=new
+# 녹여야 할 빙하들을 녹여줍니다.
+def melt():
+    while glaciers_to_melt:
+        x, y = glaciers_to_melt.popleft()
+        a[x][y] = Element.WATER.value
+        
+        
+# 빙하를 한 번 녹입니다.
+def simulate():
+    global elapsed_time, last_melt_cnt, q
 
-                    else :
-                        #check[k]=1# 한놈만 1이 없어서 쭉갈수도 있으니 이걸로 최종완료체크안됨
-                        # check전부 넘어가야함.                    
-                        two_bre=True
-                        # print('break')
-                        break
+    # 빙하에 둘러쌓여 있지 않은 물의 영역을 넓혀보며
+    # 더 녹일 수 있는 빙하가 있는지 봅니다. 
+    bfs()
+    
+    # 더 녹일 수 있는 빙하가 없다면 시뮬레이션을 종료합니다.
+    if not glaciers_to_melt:
+        return False
+    
+    # 더 녹일 빙하가 있다면 답을 갱신해주고
+    # 그 다음 시뮬레이션에서는 해당 빙하들의 위치를 시작으로
+    # 빙하에 둘러쌓여 있지 않은 물의 영역을 더 탐색할 수 있도록 queue에 
+    # 녹아야 할 빙하들의 위치를 넣어줍니다.
+    elapsed_time += 1
+    last_melt_cnt = len(glaciers_to_melt)
 
-                    #target_udlr[j][k][i]=[u[0]+dudlr[j][k][0],u[1]+dudlr[j][k][1]]# 막판업뎃1인놈orbreak대상들
-                    # print(target_udlr[j][k][i])
-                    #i_ud+=1
-                if two_bre==True:
-                    continue
-                check*=0 # check가 0이 아니어야 탈출
-                # print('haha',[target_udlr[j][k][i][0]],[target_udlr[j][k][i][1]])
-                change.append([ target_udlr[j][k][i][0], target_udlr[j][k][i][1]])
-                #amap[target_udlr[j][k][i][0]][target_udlr[j][k][i][1]]=0
-    for a in change :
-        if amap[a[0]][a[1]]==1:
-            amap[a[0]][a[1]]=0
-            melt+=1
-            ones-=1
-                
-    # ## for k in [0,1]: #leftright
-    #     for i, u in enumerate( target_lr[k]) : #~ for이 왜
-    #         i_ud=0
-    #         two_bre=False
-    #         while(amap[u[0]][u[1]]!=1): # 1인 위치로 while탈출
-    #             print('while',u)
-    #             if i_ud >= (m+1)//2 -1 : # -1 : 번째의 인덱스화 # 이때도 0인거면 그만
-    #                 # check[k+2]=1
-    #                 two_bre=True
-    #                 break
-    #             target_lr[k][i]=[u[0]+dldr[k][0],u[1]+dldr[k][1]]
-    #             print('--',target_lr[k][i])
-    #             i_ud+=1
-    #         if two_bre==True:
-    #             continue
-    #         check*=0 # check가 0이 아니어야 탈출
-    #         melt+=1
-    #         amap[u[0]][u[1]]=0
-    # print(cnt, melt)
+    q = glaciers_to_melt.copy() ## copy이유 : 녹은 걸 이제 다음 번 녹일 때 출발점으로 사용
 
-    # print(check)
-    if ones==0 :
+    # 녹아야 할 빙하들을 녹여줍니다.
+    melt()
+    
+    return True
+    
+    
+# 처음에는 (0, 0) 에서 시작하여 초기 빙하에 둘러쌓여 있지 않은 물들을 찾을 수 있도록 합니다.
+q.append((0, 0))
+visited[0][0] = True
+
+while True:
+    is_glacier_exist = simulate()
+    
+    # 빙하에 둘러쌓여 있지 않은 물의 영역을 넓혀보며 더 녹일 수 있는 빙하가 있는지 봅니다.
+    if not is_glacier_exist:
         break
-    # if check!=0:
-    #     break
-
-print(cnt, melt)
-
-# M2 시간 복잡도 초과
-# ones=[]
-# for i in range(n):
-#     for j in range(m):
-#         if amap[i][j]==1:
-#             ones.append([i,j])
-# visited=[[False]*m for _ in range(n)]
-# di=[0,0,-1,1]
-# dj=[1,-1,0,0]
-# from collections import deque
-
-
-
-# def bfs2(v):#인접0다가가기로 벽만날수있으면->1화  
-
-#     visited2=[[False]*m for _ in range(n)]
-#     visited2[v[0]][v[1]]=True
-#     aque2=deque([v]) #~ 이름v
-
-#     while(aque2):
-#         v2=aque2.popleft()
-#         # 출력
         
-#         for i in range(4):
-#             ni,nj=v2[0]+di[i],v2[1]+dj[i]#v2[0]+di[0],v2[1]+dj[1]
-#             if 0<=ni<n and 0<=nj<m and visited2[ni][nj]==False and amap[ni][nj]==0:
-#                 aque2.append([ni,nj])  # aque2 # 2헷갈리니 아예이름이 다른게 낫
-#                 visited2[ni][nj]=True #visited2
-                
-#                 if ni==1 or nj==1 or ni==n-2 or nj==m-2:
-#                     return True
-#     return False
-
-
-# def bfs(v):
-#     visited[v[0]][v[1]]=True
-#     aque=deque([v])
-#     # print(v)
-#     while(aque):
-#         w=aque.popleft()
-#         # 출
-        
-#         for i in range(4):
-#             ni,nj=w[0]+di[i],w[1]+dj[i] # i대신 0,1실화냐
-#             if 0<=ni<n and 0<=nj<m and visited[ni][nj]==False and amap[ni][nj]==0:
-#                 if bfs2([ni,nj])==True:#인접0다가가기로 벽만날수있으면->1의 0화     
-#                     # 한번에 바껴야함 amap[v[0]][v[1]]=0
-#                     return True# 걍 자신이 변하는지 하나씩 볼거라. 어라 복잡하게 풀었네 걍 네곳 보면 되는데.(아마 초반에 1<->0변함관계잘못봐서)
-#                 # 1 한개씩 넣을거라 while로 여러 1 볼필요 없음
-#                 #aque.append([ni,nj])
-#                 #visited[ni][nj]=True
-#     return False
-
-
-# numb=0
-# cnt=0
-# while(ones):# 다음초
-#     visited=[[False]*m for _ in range(n)]
-#     cnt+=1
-
-#     #left=alln-numb
-#     left=len(ones)
-#     # 아 'pop'하면 인덱스 밀리네 | ones 길이로 while문 종료 판단
-#     # 멍
-#     # len(ones)-1
-#     # print('second')
-#     # ones.pop빼는 알고리즘으로 바꾸기 전에 모든 ones 사용 위치 찾아봤어야지. 
-#     post=0
-#     change=[]
-#     for i in range(len(ones)): # 하나씩보다 bfs로 한번에가 낫나.   # pop되면 어케되려나 이미첨에 계산했으니?     
-#         # 전체 검사
-#         i+=post
-#         if bfs(ones[i])==True: # True면 pop, 바뀔놈
-#             #numb+=1
-#             #print(numb)
-#             change.append(ones[i])
-
-#             ones.pop(i)
-#             post-=1
-#     for v in change :
-#         amap[v[0]][v[1]]=0
-
-# print(cnt,left )#~
-
-
-# - 시간많이듬+
-#   + 딴 생각 쫌 함
-#   > 16분 디버깅 오타
-#   + 딴 생각 들거나 멍 때려지면 : 노래 크게 듣기?
-
-#
+print(elapsed_time, last_melt_cnt)
