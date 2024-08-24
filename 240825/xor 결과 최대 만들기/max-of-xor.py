@@ -1,17 +1,26 @@
 # 1) n개_0 이상의 정수 -> m개 뽑아 모두 xor -> 최대값 
 
 
-# 10 35_125가 안나오네 
-# 서로 다른 숫자라는 말은 없음
 
 
-# 이미 있는 대상에서 'm개'의 숫자' 뽑 -> 중복 불가능 -> combi # 그래도 중복해서 '뽑'을 수 있지. 갯수단어는 어거지로
-# m개라서 combi자연스럽
-# 이건 permutations는 아니고 중복있는 'com_순차적으로 나열해서 풀어도됨_1대1대응'?
 
-## 이 DP는 특정숫자가 첫번째인걸로 치며 순차적으로 사용해나감. xor연산이라 상관없
+# - 이미 있는 대상에서 'm개'의 숫자' 뽑  # 그래도 중복해서 'm개'를 '뽑'을 수 있지 # X_-> 중복 불가능 -> combi
+#   + 이건(특정값 순차적으로 사용(sort수준) DP로 푼) product(자리구별_미sort)는 아니고 해봐자 중복있는 'com_순차적으로 나열해서 풀어도됨_1대1대응'
+#   > 이 DP는 특정숫자가 첫번째인걸로 치며 순차적으로 사용해나감. 
+#   + 요소들에 대해 교환 법칙 성립하는 연산이라 sort된 한 버전으로 사용해도 괜찮음. 애초에 뽑는다고 하기도 함(?)
+#   + combination 중에서도 반복 없는 걸로 풀어도 되는 이유(메모리에러 났었나) : 
 
+#   
+# - comb _ 굳이 DP로? 이긴함. 다른 유형 문제를 DP로 풀고, 고르기 문제는 라이브러리 4가지 유형 외우기 용으로 쓰자.
+# - [[itertools]] 확통_중복 ㅠ : "product"
+#   + [ㅠ]product(자리구별/반복뽑[중복] 가능) [[곱하기]] / [P]permutations(자리구별o/반복x)
+#   + combinations_with_replacement() ( 자리구별x / "반복o")
+#   + combinations( 변수_iterable/2차원 리스트도 ㄱㄴ/.. , r ) # 한 껍질 벗긴 것에서 r개 뽑아줌
 
+#   + m1) product(list1, repeat=3)_list1의 요소[행이 될 수도 있음] 를 통째로repeat개 고름
+#   + m2) product( *{2d_list} )_2d_list의 각 행에서 1개씩 고름 ## (모든 곳에서 두 껍질 들어가는 대신 그 안에선 1개씩만 가져옴 )_반환하는 각 튜플의 요소 수 = 2d_list의 행의 수  
+
+# - DP
 import sys
 n, m = map(int, sys.stdin.readline().split())
 amap = list(map(int, sys.stdin.readline().split()))
@@ -48,7 +57,7 @@ def search (recent_index,cnt):
 
     # 바꾸고 코드의 모든 흐름에서의 요소 체크
     for j in range(recent_index+1, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
-    # for j in range(recent_index+1, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
+    # for j in range(recent_index, len(amap)) :#  메모리 초과. 어차피 xor
         # print('111',j)
         # print('f',amap[j])
         # print(aset[cnt-1][1])
@@ -85,4 +94,6 @@ print(amax[0])
 
 # - 자연수 0 여부 
 
-# - xor ^
+# - xor ^ 
+
+# - 1h 29m
