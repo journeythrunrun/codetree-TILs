@@ -2,9 +2,16 @@
 
 
 # 10 35_125가 안나오네 
+# 서로 다른 숫자라는 말은 없음
 
-# 이미 있는 대상에서 'm개의 숫자' 뽑 중복 가능 -> combi
+
+# 이미 있는 대상에서 'm개'의 숫자' 뽑 -> 중복 불가능 -> combi # 그래도 중복해서 '뽑'을 수 있지. 갯수단어는 어거지로
 # m개라서 combi자연스럽
+# 이건 permutations는 아니고 중복있는 'com_순차적으로 나열해서 풀어도됨_1대1대응'?
+
+## 이 DP는 특정숫자가 첫번째인걸로 치며 순차적으로 사용해나감. xor연산이라 상관없
+
+
 import sys
 n, m = map(int, sys.stdin.readline().split())
 amap = list(map(int, sys.stdin.readline().split()))
@@ -20,6 +27,8 @@ amax=[0]
 
 target=[]
 
+# 32+101
+# 011
 # 이전처럼 연속적인 수 아님 _ 인덱스가 연속적임
 temp=[0]
 def search (recent_index,cnt):
@@ -38,10 +47,11 @@ def search (recent_index,cnt):
         return 
 
     # 바꾸고 코드의 모든 흐름에서의 요소 체크
-    for j in range(recent_index+1, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
+    for j in range(recent_index, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
     # for j in range(recent_index+1, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
         # print('111',j)
         # print('f',amap[j])
+        # print(aset[cnt-1][1])
         aset.append([j,aset[cnt-1][1]^amap[j]]) # j-1 cnt-1
         # print(aset)
         search(j, cnt+1)
@@ -53,7 +63,7 @@ def search (recent_index,cnt):
 # m개 검사 굳이?
 for i in range(len(amap)) : # 사실 -m개 이용해서 마지막 부분 좀 줄일 수 있긴함. 
 
-    aset.append([i,0])
+    aset.append([i,amap[i]]) # 첫번째 께 반영이 안됐었네 
     search(i,1)#
     aset.pop()
 print(amax[0])
