@@ -47,7 +47,7 @@ def search (recent_index,cnt):
         return 
 
     # 바꾸고 코드의 모든 흐름에서의 요소 체크
-    for j in range(recent_index, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
+    for j in range(recent_index+1, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
     # for j in range(recent_index+1, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
         # print('111',j)
         # print('f',amap[j])
