@@ -6,12 +6,8 @@
 # # (while t+=1, len)
 # # -> 바깥의 0 저장
 
-# # - 해설 방법 
-# # - # 한 물에서 bfs 시작-> 물이면 움직임대상 q에 추가, 빙하면 녹일 빙하에 추가-> 녹일 빙하를 다음 bfs 시작인q화
-# # -> 네곳씩만 보면서, 내부로 bfs. 그 네 방면 쪽을 q에 넣고 bfs돌리기. 
-# # -> q : 첨에 끝에서 시작해서 1아니게 만나는 애들 다
-# # -> copy이유 : 녹은 걸 이제 다음 번 녹일 때 출발점으로 사용
 
+# 해설방법임
 # from collections import deque
 # import enum
 
@@ -81,7 +77,11 @@
 #                 # 이때에도 visited 값을 true로 설정해줍니다.
 #                 glaciers_to_melt.append((new_x, new_y))
 #                 visited[new_x][new_y] = True
-
+# # - 해설 방법 
+# # - # 한 물에서 bfs 시작-> 물이면 움직임대상 q에 추가, 빙하면 녹일 빙하에 추가-> 녹일 빙하를 다음 bfs 시작인q화
+# # -> 네곳씩만 보면서, 내부로 bfs. 그 네 방면 쪽을 q에 넣고 bfs돌리기. 
+# # -> q : 첨에 끝에서 시작해서 1아니게 만나는 애들 다
+# # -> copy이유 : 녹은 걸 이제 다음 번 녹일 때 출발점으로 사용
 
 # # 녹여야 할 빙하들을 녹여줍니다.
 # def melt():
@@ -133,10 +133,6 @@
 
 
 
-
-
-
-
 from collections import deque
 import enum
 
@@ -146,7 +142,7 @@ inpu=sys.stdin.readline
 
 n,m=map(int,inpu().split())
 amap=[list(map(int, inpu().split()  )  ) for _ in range(n) ]
-# print(amap)
+
 visited=[[False]*m for _ in range(n) ]
 
 class Element(enum.Enum):
@@ -167,46 +163,42 @@ def can_go(x,y):
         False
     # return True if 0<=x<n and 0<=y<m and amap[x][y]==Element.water.value and visited[x][y]==False else False
 
-# def is_g
-
 q=deque()
 t=0
-
 dx, dy=[0,0,1,-1],[1,-1,0,0]
-from copy import deepcopy
+
 def bfs(v):
     visited[v[0]][v[1]]=True
     q.append(v)
     while(q):
-        x,y=q.popleft() #~ popleft
+        x,y=q.popleft() 
         visited[x][y]=True
-        # print('started_water', x,y)
 
         for i in range(4):
             nx, ny= x+dx[i], y+dy[i]
             if is_glacier(nx,ny):
-                # print('glacier',nx,ny)
                 glaciers.append( (nx,ny) )
                 visited[nx][ny]=1
+
             elif can_go(nx,ny):
-                # print('water',nx,ny)
                 q.append( (nx,ny) )
                 visited[nx][ny]=True
 
     return 
 
 old_len=0
+
 while(1):
-    glaciers=deque() # 다음 시작 전 타겟 얼음 리셋
+    glaciers=deque() # - 다음 녹이기 '타임 마다' 타겟된(이미 저번에 녹아진) 얼음 '리셋'
     bfs((0,0))
     
-    # 처음부터 탈출케이스도 커버 가능하도록
+    # - '처음부터 탈출하는 케이스'도 있기 때문에, 첫 검사 후에 타겟이 된 얼음 길이가 0인 경우에 탈출하는 것 후에 t시간 증가시키기
     if len(glaciers)==0: 
         break
-    t+=1    
+    t+=1 # - 't 증가 _ 여기 부터 이번 시간에 녹인 것'. while 첫 줄 기준 아님  
     
-    # 길이가 0이 아닐 때라 이전 길이
-    old_len=len(glaciers) # 다이어그램알고리즘 및 코드 위치 먼저 할걸?
+    # - '타겟'(한 번에 녹인 빙하의 개수) '있을 때 저장'해놓기 # - 종료 체크 하고 나서 t를 증가 시키기 때문에, 종료 기준으로 여기의 길이가 마지막 길이.  ((여기까지 왔다는 것은, 이번 타임에 녹일 빙하의 길이가 0이 아닐 때라 이전 길이
+    old_len=len(glaciers) # '큰 흐름들'(및 코드 위치) 먼저 잡고 하기?
 
     q=glaciers.copy()
 
@@ -221,5 +213,5 @@ print(t,old_len)
 
 # - 해설 봤었는데도 이동시간 등 빼면 40분?
 #   + 실수 : 조건문 ==, True오타 , append 때 괄호 ( (x ,y) )
-# - nxm을 mxn으로 알았다가 수정했으면, m n 관련 전체 코드 다 체크 좀
+# - ! nxm을 mxn으로 알았다가 수정했으면, m n 관련 전체 코드 다 체크 좀
 # - queue copy
