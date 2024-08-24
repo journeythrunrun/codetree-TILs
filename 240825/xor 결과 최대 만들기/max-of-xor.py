@@ -1,6 +1,10 @@
 # 1) n개_0 이상의 정수 -> m개 뽑아 모두 xor -> 최대값 
 
+
+# 10 35_125가 안나오네 
+
 # 이미 있는 대상에서 'm개의 숫자' 뽑 중복 가능 -> combi
+# m개라서 combi자연스럽
 import sys
 n, m = map(int, sys.stdin.readline().split())
 amap = list(map(int, sys.stdin.readline().split()))
@@ -17,13 +21,17 @@ amax=[0]
 target=[]
 
 # 이전처럼 연속적인 수 아님 _ 인덱스가 연속적임
-
+temp=[0]
 def search (recent_index,cnt):
     # 재귀 탈출
     # print(cnt)
     # 1개면 ^ 연산 안되고 바로 cnt==m되구나. 하긴 알고리즘상은 맞아도 애초에 문제에서 비대상 xor은 말안하긴했음 -> 출력으로 다른거알았으면 그부분 추가로 코드에 반영해놔야함.
     if cnt==m :
         # print(target)
+        # print(aset)
+        
+        temp[0]+=1
+        # print(temp[0])
         target.append(aset)
         # print(aset)
         amax[0]=max(amax[0], aset[-1][1]) # X_ 여기서 xor_for 보단 대상을 넘기지말고 연산결과를 넘겨야겠다._ append는 ^=한다쳐도, -> pop이 귀찮으니까 병렬 저장 요소 추가 ->  그것도 귀찮으니 시간복잡도 보다 적은 저장소1개추가[append(순서있는리스트)해버리면 주소참조귀찮아짐 tuple+=(j,) or str. .]
@@ -57,7 +65,7 @@ print(amax[0])
 #     amax=max(amax,temp_max)
 # print(target)
 # print(amax)
-# 4)  m,n = 1,1_(print( 1 xor 0과 한다고 친다보다. ))_0보단? | 1,5 _ 테스트셋 제대로 만들어서 안돌리고 1시간제출함
+# 4)  m,n = 1,1_(print( 1 xor 0과 한다고 친다보다. ))_0보단? | 1,5 _ 테스트셋 제대로 만들어서 안돌리고 1시간제출함 | m=n
 
 
 ## 중복숫자도 뺄 수 있어야하려나
