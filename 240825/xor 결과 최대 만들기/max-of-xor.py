@@ -8,7 +8,9 @@ amap = list(map(int, sys.stdin.readline().split()))
 if m==1 and n==1:
     print(amap[0])
     exit()
-
+elif m==1:
+    print(max(amap))
+    exit()
 aset=[]
 amax=[0]
 
@@ -19,11 +21,11 @@ target=[]
 def search (recent_index,cnt):
     # 재귀 탈출
     # print(cnt)
+    # 1개면 ^ 연산 안되고 바로 cnt==m되구나. 하긴 알고리즘상은 맞아도 애초에 문제에서 비대상 xor은 말안하긴했음 -> 출력으로 다른거알았으면 그부분 추가로 코드에 반영해놔야함.
     if cnt==m :
-
         # print(target)
         target.append(aset)
-        
+        # print(aset)
         amax[0]=max(amax[0], aset[-1][1]) # X_ 여기서 xor_for 보단 대상을 넘기지말고 연산결과를 넘겨야겠다._ append는 ^=한다쳐도, -> pop이 귀찮으니까 병렬 저장 요소 추가 ->  그것도 귀찮으니 시간복잡도 보다 적은 저장소1개추가[append(순서있는리스트)해버리면 주소참조귀찮아짐 tuple+=(j,) or str. .]
         return 
 
@@ -31,13 +33,18 @@ def search (recent_index,cnt):
     for j in range(recent_index, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
     # for j in range(recent_index+1, len(amap)) :#  # - 2_연달아가능하게recent+1로  ~
         # print('111',j)
+        # print('f',amap[j])
         aset.append([j,aset[cnt-1][1]^amap[j]]) # j-1 cnt-1
         # print(aset)
         search(j, cnt+1)
         aset.pop()
+# 4 1
+# 3 7 234 346
+# 12345라
 
 # m개 검사 굳이?
 for i in range(len(amap)) : # 사실 -m개 이용해서 마지막 부분 좀 줄일 수 있긴함. 
+
     aset.append([i,0])
     search(i,1)#
     aset.pop()
@@ -50,7 +57,7 @@ print(amax[0])
 #     amax=max(amax,temp_max)
 # print(target)
 # print(amax)
-# 4)  m,n = 1,1_(print( 1 xor 0과 한다고 친다보다. ))_0보단? | 1,5
+# 4)  m,n = 1,1_(print( 1 xor 0과 한다고 친다보다. ))_0보단? | 1,5 _ 테스트셋 제대로 만들어서 안돌리고 1시간제출함
 
 
 ## 중복숫자도 뺄 수 있어야하려나
