@@ -149,19 +149,28 @@ import enum
 import sys
 inpu=sys.stdin.readline
 
-m,n=map(int,inpu().split())
+n,m=map(int,inpu().split())
 amap=[list(map(int, inpu().split()  )  ) for _ in range(n) ]
-
+# print(amap)
 visited=[[False]*m for _ in range(n) ]
 
 class Element(enum.Enum):
     water=0
     glacier=1
+
+
 def is_glacier(x,y):
-    return True if 0<=x<n and 0<=y<m and amap[x][y]==Element.glacier.value and visited[x][y]==False else False
+    if 0<=x and x<n and 0<=y and y<m and amap[x][y]==Element.glacier.value and visited[x][y]==False :
+        return True
+    else:
+        False
 
 def can_go(x,y):
-    return True if 0<=x<n and 0<=y<m and amap[x][y]==Element.water.value and visited[x][y]==False else False
+    if 0<=x<n and 0<=y<m and amap[x][y]==Element.water.value and visited[x][y]==False :
+        return True
+    else:
+        False
+    # return True if 0<=x<n and 0<=y<m and amap[x][y]==Element.water.value and visited[x][y]==False else False
 
 # def is_g
 
@@ -176,15 +185,16 @@ def bfs(v):
     while(q):
         x,y=q.popleft() #~ popleft
         visited[x][y]=True
-        # print('1111', x,y)
+        # print('started_water', x,y)
 
         for i in range(4):
             nx, ny= x+dx[i], y+dy[i]
             if is_glacier(nx,ny):
+                # print('glacier',nx,ny)
                 glaciers.append( (nx,ny) )
                 visited[nx][ny]=1
             elif can_go(nx,ny):
-                # print(nx,ny)
+                # print('water',nx,ny)
                 q.append( (nx,ny) )
                 visited[nx][ny]=True
 
@@ -193,9 +203,6 @@ def bfs(v):
 old_len=0
 while(1):
     glaciers=deque() # 다음 시작 전 타겟 얼음 리셋
-
-    
-
     bfs((0,0))
     
     # 처음부터 탈출케이스도 커버 가능하도록
@@ -213,4 +220,5 @@ print(t,old_len)
 
 
 # + 실수 : 조건문 ==, True오타 , append 때 괄호 ( (x ,y) )
-# queue copy
+# - nxm을 mxn으로 알았다가 수정했으면, m n 관련 전체 코드 다 체크 좀
+# - queue copy
