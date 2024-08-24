@@ -5,7 +5,7 @@ import sys
 n, m = map(int, sys.stdin.readline().split())
 amap = list(map(int, sys.stdin.readline().split()))
 
-if m==1:
+if m==1 and n==1:
     print(amap[0])
     exit()
 
