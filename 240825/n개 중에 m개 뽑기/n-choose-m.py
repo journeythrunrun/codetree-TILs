@@ -6,8 +6,6 @@
 # 2) m2_DP=해설
 
 
-
-# - DP로 시간 재고 풀어보기? or 다른 DP로만 풀 수 있는 문제들 그 다음에 꽤 있으면 그럴 때 하던지?
 import sys
 from itertools import combinations
 inpu=sys.stdin.readline
@@ -28,7 +26,7 @@ for a in combinations( range(1,n+1) ,m ): # m개씩
 
 
 # > 12m (라이브러리 사용) | (DP)
-
+# - 그래도 특정 문제에 관해선, 라이브러리 보다 *r간소화 되는 경우(r개 요소 저장할 필요 없는 경우)도 있으니까 각 itertools을 DP로 구현할줄 알기
 
 
 
