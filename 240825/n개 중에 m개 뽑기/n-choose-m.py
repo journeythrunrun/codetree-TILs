@@ -3,7 +3,7 @@
 
 # 2) combinations _m1
 # - 예시 => '중복' 없음
-# 2) m2_DP=해설
+# 2) m2_Backtracking=해설
 
 
 import sys
@@ -24,8 +24,8 @@ for a in combinations( range(1,n+1) ,m ): #m개씩
 
 
 
-# - 12m (라이브러리 사용) | (DP)
-# - 그래도 특정 문제에 관해선, 라이브러리 보다 *r간소화 되는 경우(r개 요소 저장할 필요 없는 경우)도 있으니까 각 itertools을 DP로 구현할줄 알기
+# - 12m (라이브러리 사용) | (Backtracking)
+# - 라이브러리 보다 *r간소화 되는 문제의 케이스임. 항 중에 생성 'r*' nCr이 최대부분이라서도 그러함.(r개 요소 저장할 필요 없는 경우)도 있으니까 각 itertools을 Backtracking로 구현할줄 알기
 
 
 # # - 해설 풀이
