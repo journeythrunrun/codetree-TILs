@@ -80,7 +80,7 @@ def distance(one, two):
 
 
 # - combi 라이브러리순서 : 사용했을 떄 순서 안섞임
-def self_combinations(target):  # r=3처럼 개작은 경우 & # 근데 따로 함수로 만들어서 똑같이 전달하려면(저장꼴) *r못아낌. forforfor내에 하기엔 코드지저분 *r 아끼기도 가능
+def self_combinations(target, haha):  # r=3처럼 개작은 경우 & # 근데 따로 함수로 만들어서 똑같이 전달하려면(저장꼴) *r못아낌. forforfor내에 하기엔 코드지저분 *r 아끼기도 가능
     temp = []
     for i in range(len(target)):
         for j in range(i + 1, len(target)):  # i+1. 반복이면 _
