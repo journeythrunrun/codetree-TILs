@@ -95,7 +95,7 @@ def self_combinations(target):  # r=3처럼 개작은 경우 & # 근데 따로 �
 # print( list(combinations([1,2], 3)) ) # []
 # for a in []: # 에러 안나고 그냥 for 바로 탈출
 #     print('00')
-for aset in slef_combinations(target, 3):  # ( [1, 2, 1], [2, 1, 0], [3, 0, 2]
+for aset in self_combinations(target, 3):  # ( [1, 2, 1], [2, 1, 0], [3, 0, 2]
     temp_answer = 0
     # [인덱스]쓸때 모양 그거 확실한지 생각.
     temp_answer += distance(se[0], aset[0][1:]) + distance(aset[2][1:], se[1])  # [1,2],
