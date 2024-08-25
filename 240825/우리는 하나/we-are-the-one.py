@@ -21,38 +21,37 @@ amax=0
 
 # -   print  (  list   (combinations( range(n*n) ,k)) ) 
 # - [(0,), (1,), (2,), (3,), (4,), (5,), (6,), (7,), (8,)]
-#   > 예전꺼라 잘못기억하고 있나 했는데 걍 k가 1이었네 ㅋㅎ 
-
-
+#   > 잘못기억하고 있나 했는데 걍 k가 1이었네 ㅋㅎ 
 
 
 from collections import deque
 for selected in combinations(range(n*n),k):
-    # - 여러 세트에 대한 max값 찾기 때, visited, count : 새로운 세트 마다 초기화
+    # - 각 세트의 경우를 거쳐서 max값 찾을 때 -> visited, count : 각 새로운 세트 마다 초기화
     cnt=0
     visited=[ [False]*n for _ in range(n) ]
 
-    q=deque(selected) # (0,) -> deque([0])  튜플은 원래 1개만 있는게 저런 형식으로 있는 거일 뿐임. 형식 특이한 부분 없음  
+    q=deque(selected) # - (0,) -> deque([0])  튜플은 원래 1개만 있는게 저런 형식으로 있는 거일 뿐임. #형식 특이한 부분 없음  
     # - selected=(1,2,3) -> deque([1,2,3]) -> pop 
-    
-    # for a in selected : # 2,4,5
+    # - deque : 한 껍질 벗기고 deque버전 리스트껍질화
+
+    #for a in selected : # 2,4,5
     while(q):
         a= q.popleft()
         i,j=a//n, a%n
-        # - queue에 처음부터 들어있는 값이 여러개인 상황 -> popleft한 것이 방문한 곳이면 continue <-그 두 번째 이후 꺼가, 첫 번째 꺼로 부터 유발된 장소에 또 가지 않도록 ~
+        # - queue에 처음부터 들어있는 값이 여러개인 상황 -> popleft한 것이 방문한 곳이면 continue #<-그 두 번째 이후 꺼가, 첫 번째 꺼로 부터 유발된 장소에 또 가지 않기 위함
         if visited[i][j]==True:
             continue
 
-        # - visited & count _ vc비자
         cnt+=1
         visited[i][j]=True
 
         for k in range(4):
             ni, nj=i+dx[k], j+dy[k]
             if 0<=ni<n and 0<=nj<n and visited[ni][nj]==False and u<=abs(amap[i][j]-amap[ni][nj])<=d:
-                # cnt+=1 # - bfs로 바꿨을 땐, while 큐라, 큐입력때든 큐출력때든 한 곳에서만 cnt해야함[cnt 두번됨] # 문제가 연속 이동 가능한 거라 for->bfs_pop으로 바꿀 때, 전체 알고리즘 살펴보며? 이 부분 주석처리로 바꿨어야함.
+                # - cnt+=1
+                # - bfs로 바꿨을 땐, while(큐)라, 큐입력때든 큐출력때든 한 곳에서만 cnt해야함[cnt 두번됨] # 문제가 '연속으로' 이동 가능했던 거였어서, for->bfs_pop으로 바꿈 => ! 바꿀 때, 해당 부분 전체 코드 라인 살펴보면서, 변경으로 인한 알고리즘 세부 논리 재확인 검증했어야함 #이 부분 주석처리로 바꿨어야함.
                 visited[i][j]=True
-                q.append(ni*n+nj)# - > i j 아니고 ni nj
+                q.append(ni*n+nj) # - ! i j 아니고 ni nj
 
     amax=max(amax,cnt)
 print(amax)
@@ -62,15 +61,19 @@ print(amax)
 
 
 # - 멍때림
-# - 1h 3m  (itertools 사용 관련 암기까먹어서 본 시간 뺌)
-#   + 28m 틀렸습니다 : [문제이해] 상하좌우 인접한 도시간의 이동만 가능 -> 이어서 '계속' 못 간다는 말은 없으니 '가능'
-#   + u이상 d이하 거꾸로
+# - 1h 3m  (itertools 사용 관련 암기를 까먹어서 본 시간 빼짐)
+#   + 28m 틀림 : [문제이해] 상하좌우 인접한 도시간의 이동만 가능 -> 이어서 '계속' 못 간다는 말은 없으니 '가능'
+#   + ! u이상 d이하 거꾸로
  
 
 # - O(NCr) 관련 시간복잡도 및 허가 케이스 _ n최대 8
-#   + ((maybeN=n으로 쓰셨던듯. 나는 N을 총 개수로 사용))
-#   + M2 DP로 약간 효율화 가능한 케이스의 문제. : O(C(N,k)*N) 
-#     > 최악의 경우라고 해도 k는 'N'에 비하면 네제곱근 수준임. 그래도 시간복잡도면 기왕이면 적었을듯.
-#     + -> 나 이제 n^2처럼 소문자 n으로 적어야겠다  (제곱근인지 헷갈 대비)
+#   > ((maybeN=n으로 쓰셨던듯. 나는 N을 총 개수로 사용))
 
-#   + M1 itertools  :  O(  r*  C(N,k)*N)
+#   + M2_DP 로 시간복잡도*k부분 간소화 가능한 케이스의 문제였음.[뽑은 거에서 이어서 바로 연산들어가면 되기 때문임]
+#     > O(C(N,k)*N) 
+
+#     >> k는 max라고 해도 'N'에 비하면 네제곱근 수준일 뿐임. 그래도 시간복잡도면 작은 값이어도 변수니까 지우진 않고 기왕이면 기재했을 것임.
+
+#     + -> 나 이제 n^2처럼 소문자 n으로 적어야겠다  (단순제곱근인지 헷갈 대비)
+
+#   + M1_itertools  :  O(  r*  C(N,k)*N)
