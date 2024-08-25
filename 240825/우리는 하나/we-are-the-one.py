@@ -25,7 +25,7 @@ amax=0
 
 
 from collections import deque
-for selected in combinations(range(n*n),k):
+for selected in combinations(range(n*n),k): 
     # - 각 세트의 경우를 거쳐서 max값 찾을 때 -> visited, count : 각 새로운 세트 마다 초기화
     cnt=0
     visited=[ [False]*n for _ in range(n) ]
@@ -69,11 +69,11 @@ print(amax)
 # - O(NCr) 관련 시간복잡도 및 허가 케이스 _ n최대 8
 #   > ((maybeN=n으로 쓰셨던듯. 나는 N을 총 개수로 사용))
 
-#   + M2_DP 로 시간복잡도*k부분 간소화 가능한 케이스의 문제였음.[뽑은 거에서 이어서 바로 연산들어가면 되기 때문임]
+#   + M2_Backtracking으로 시간복잡도*k부분 간소화 [저장을 위해 *요소수r할 힐요없이, 뽑은 거에서  바로 연산들어가면 되기 때문임] 가능한 케이스인 경우도 있음. 이 문제는 어차피 r보다 큰N을 곱해서 큰 시복은 같을듯
 #     > O(C(N,k)*N) 
-
 #     >> k는 max라고 해도 'N'에 비하면 네제곱근 수준일 뿐임. 그래도 시간복잡도면 작은 값이어도 변수니까 지우진 않고 기왕이면 기재했을 것임.
 
 #     + -> 나 이제 n^2처럼 소문자 n으로 적어야겠다  (단순제곱근인지 헷갈 대비)
 
-#   + M1_itertools  :  O(  r*  C(N,k)*N)
+#   + M1_itertools  
+#     + O(C(N,k)*N)  <- O( n*2[range] + r*  C(N,k)+ C(N,k) *N)  # https://www.codetree.ai/missions/2/problems/choose-n-out-of-2n-properly/description 2n개 중에 n개의 숫자를 적절하게 고르기
